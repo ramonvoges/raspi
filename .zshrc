@@ -78,5 +78,17 @@ alias raspi="/usr/bin/git --git-dir=$HOME/.raspi/ --work-tree=$HOME"
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse'
 # export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 
+# Preferred editor for local and remote sessions
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='nvim'
+else
+  export EDITOR='nvim'
+fi
+
 # Additions to PATH
-path=('$HOME/.local/bin' $path)
+# path=('$HOME/.local/bin' $path)
+export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
+export PATH=/snap/bin:$PATH
+
+# Zoxide
+eval "$(zoxide init --cmd cd zsh)"
