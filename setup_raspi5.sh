@@ -29,29 +29,8 @@ install_package() {
 install_package zsh
 chsh -s /bin/zsh >>$logfile 2>&1
 
-oh-my-zsh installieren
-if [ ! -d "$HOME/.oh-my-zsh" ]; then
-	echo "Installing oh-my-zsh..."
-	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended >>$logfile 2>&1
-	if [ $? -ne 0 ]; then
-		echo "Error installing oh-my-zsh. See $logfile for details."
-	fi
-else
-	echo "oh-my-zsh is already installed."
-fi
-
-# Starship installieren
-sudo curl -sS https://starship.rs/install.sh | sh >>$logfile 2>&1
-echo "eval "$(starship init zsh)"" >>$HOME/.zshrc
-
 # snapd für neovim installieren
 install_package snapd
-pip install pynvim --break-system-packages >>$logfile 2>&1
-
-# LazyVim installieren
-echo "Installing LazyVim"
-# curl -sLf https://spacevim.org/install.sh | bash >> $logfile 2>&1
-git clone https://github.com/LazyVim/starter ~/.config/nvim
 
 # Skriptverzeichnis erstellen
 echo "Making directories for scripts and notebooks..."
@@ -86,9 +65,9 @@ else
 fi
 
 # Wallpaper kopieren
-if [ -f "/media/ramon/HERMES/background03.png" ]; then
+if [ -f "$HOME/Pictures/background03.png" ]; then
 	echo "Copying wallpaper..."
-	sudo cp /media/ramon/HERMES/background03.png /usr/share/rpd-wallpaper/
+	sudo cp $HOME/Pictures/background03.png /usr/share/rpd-wallpaper/
 else
 	echo "Wallpaper file not found."
 fi
@@ -104,21 +83,8 @@ pip install jupyterlab --break-system-packages >>$logfile 2>&1
 pip install nbclassic --break-system-packages >>$logfile 2>&1
 pip install altair --break-system-packages >>$logfile 2>&1
 
-# Platzhalter für weitere Installationen
-# install_package paketname
-
 install_package nodejs
 install_package npm
-
-# Screenfetch installieren
-install_package screenfetch
-
-if [ -f "$HOME/.zshrc" ]; then
-	echo "Setting up Screenfetch..."
-	echo "screenfetch" >>$HOME/.zshrc
-else
-	echo "Could'nt add screenfetch to .zshrc)"
-fi
 
 # Github-Cli installieren
 echo "Installing Github-Cli"
@@ -133,20 +99,13 @@ install_package gh
 install_package mc
 install_package btop
 install_package bat
-ln -s /usr/bin/batcat ~/.local/bin/bat >>$logfile 2>&1
+sudo ln -s /usr/bin/batcat ~/.local/bin/bat >>$logfile 2>&1
 install_package ripgrep
 
 install_package exa
 install_package fzf
 install_package fd-find
-
-# Zellij
-echo "Installing Zellij"
-install_package rust
-cargo install --locked zellij >>$logfile 2>&1
-
-# mkdir $HOME/.config/zellij
-# zellij setup --dump-config >$HOME/.config/zellij/config.kdl >>$logfile 2>&1
+install_package tmux
 
 # Konfigurationsdateien verwalten
 echo "Setting up the dotfiles..."
