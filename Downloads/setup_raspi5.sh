@@ -89,9 +89,16 @@ install_package gh
 
 # Nützliche Werkzeuge
 install_package mc
+mkdir -p $HOME/.local/share/mc/skins && cd $HOME/.local/share/mc/skins && git clone https://github.com/catppuccin/mc.git && ln -s -f ./mc/catppuccin.ini . >>$logfile 2>&1
 install_package btop
+# bat einrichten
 install_package bat
 sudo ln -s /usr/bin/batcat ~/.local/bin/bat >>$logfile 2>&1
+mkdir -p "$(bat --config-dir)/themes"
+wget -P "$(bat --config-dir)/themes" https://github.com/catppuccin/bat/raw/main/themes/Catppuccin%20Mocha.tmTheme
+bat cache --build
+echo '--theme="Catppuccin Mocha"' >>$HOME/.config/bat/config
+
 install_package ripgrep
 
 install_package exa
@@ -127,5 +134,9 @@ if [ -f "$HOME/Pictures/background03.png" ]; then
 else
 	echo "Wallpaper file not found."
 fi
+
+# Theme für btop kopieren
+mkdir $HOME/.config/btop/themes/
+cp $HOME/Downloads/catppuccin_mocha.theme $HOME/.config/btop/themes/ >>$logfile 2>&1
 
 echo "Installation completed."
