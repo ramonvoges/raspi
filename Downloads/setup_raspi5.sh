@@ -90,14 +90,16 @@ install_package gh
 # Nützliche Werkzeuge
 install_package mc
 mkdir -p $HOME/.local/share/mc/skins && cd $HOME/.local/share/mc/skins && git clone https://github.com/catppuccin/mc.git && ln -s -f ./mc/catppuccin.ini . >>$logfile 2>&1
+
 install_package btop
+
 # bat einrichten
 install_package bat
 sudo ln -s /usr/bin/batcat ~/.local/bin/bat >>$logfile 2>&1
-mkdir -p "$(bat --config-dir)/themes"
-wget -P "$(bat --config-dir)/themes" https://github.com/catppuccin/bat/raw/main/themes/Catppuccin%20Mocha.tmTheme
-bat cache --build
-echo '--theme="Catppuccin Mocha"' >>$HOME/.config/bat/config
+mkdir -p "$(bat --config-dir)/themes" >>$logfile 2>&1
+wget -P "$(bat --config-dir)/themes" https://github.com/catppuccin/bat/raw/main/themes/Catppuccin%20Mocha.tmTheme >>$logfile 2>&1
+bat cache --build >>$logfile 2>&1
+echo '--theme="Catppuccin Mocha"' >>$HOME/.config/bat/config >>$logfile 2>&1
 
 install_package ripgrep
 
@@ -105,6 +107,18 @@ install_package exa
 install_package fzf
 install_package fd-find
 install_package tmux
+
+# LaTeX installieren
+
+install_package texlive
+install_package texlive-science
+install_package texlive-humanities
+install_package texlive-luatex
+install_package texlive-latex-extra
+install_package texlive-lang-german
+install_package texlive-latexmk
+install_package csquotes
+install_package mathjax-siunitx
 
 # Konfigurationsdateien verwalten
 echo "Setting up the dotfiles..."
