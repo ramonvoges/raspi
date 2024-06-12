@@ -64,6 +64,19 @@ else
 	echo "SauceCodePro from Nerd Fonts are already installed."
 fi
 
+if [ ! -d "/usr/share/fonts/truetype/JetBrainsMono" ]; then
+	echo "Installing JetBrainsMono from Nerd Fonts..."
+	sudo mkdir /usr/share/fonts/truetype/JetBrainsMono
+	curl -fLo "$HOME/Downloads/JetBrainsMono.zip" https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/JetBrainsMono.zip
+	sudo unzip /home/ramon/Downloads/JetBrainsMono.zip -d /usr/share/fonts/truetype/JetBrainsMono/ >>$logfile 2>&1
+	if [ $? -ne 0 ]; then
+		echo "Error installing JetBrainsMono from Nerd Fonts. See $logfile for details."
+	fi
+	sudo fc-cache -fv >>$logfile 2>&1
+else
+	echo "JetBrainsMono from Nerd Fonts are already installed."
+fi
+
 # Python-Pakete installieren
 install_package python3-setuptools
 install_package python3-pillow
@@ -119,6 +132,7 @@ install_package texlive-lang-german
 install_package texlive-latexmk
 install_package csquotes
 install_package mathjax-siunitx
+install_package pandoc
 
 # Konfigurationsdateien verwalten
 echo "Setting up the dotfiles..."
