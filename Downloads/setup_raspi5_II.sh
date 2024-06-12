@@ -12,7 +12,7 @@ sudo snap install core >>$logfile 2>&1
 # Nvim und Config
 sudo snap install nvim --classic >>$logfile 2>&1
 pip install pynvim --break-system-packages >>$logfile 2>&1
-# LazyVim installieren
+sudo npm install -g neovim >>$logfile 2>&1
 
 # LazyVim
 echo "Installing LazyVim"
